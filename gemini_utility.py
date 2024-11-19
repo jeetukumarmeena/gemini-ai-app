@@ -51,5 +51,4 @@ def gemini_pro_response(user_promt):
     result = response.text
     return result
 
-output = gemini_pro_response("what is machine learning")
-print (output)
+
