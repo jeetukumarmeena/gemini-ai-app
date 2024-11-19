@@ -1,4 +1,3 @@
-# main.py
 import streamlit as st
 from streamlit_option_menu import option_menu
 import os
@@ -57,40 +56,37 @@ if selected == "ChatBot":
         with st.chat_message("assistant"):
             st.markdown(gemini_response.text)
 
-# image captioning page
-if selected == "image Captioning":
-    # streamlit page title
-     st.title(" 📷 Snap Narrate")
-     uploaded_image =st.file_uploader("Upload an image...",type=["jpg,jpeg","png"])
-     if st.button("Generate Caption"):
+# Image captioning page
+if selected == "Image Captioning":
+    # Streamlit page title
+    st.title(" 📷 Snap Narrate")
+    uploaded_image = st.file_uploader("Upload an image...", type=["jpg", "jpeg", "png"])
+    if st.button("Generate Caption"):
         image = Image.open(uploaded_image)
-        col1,col2 = st.columns(2)
+        col1, col2 = st.columns(2)
         with col1:
-             resized_image =image.resize((800,500))
-             st.image(resized_image)
+            resized_image = image.resize((800, 500))
+            st.image(resized_image)
         default_prompt = "write a short caption for this image"
-        caption = gemini_pro_vision_response(default_prompt,image)
+        caption = gemini_pro_vision_response(default_prompt, image)
 
         with col2:
             st.info(caption)
 
-# text embedding page
+# Text embedding page
 if selected == "Embed Text":
     st.title("🔠 Embed Text")
-    # input text box
-    input_text = st.text_area(label="",placeholder="Enter the text to embeddings")
+    # Input text box
+    input_text = st.text_area(label="", placeholder="Enter the text to embed")
     if st.button("Get Embeddings"):
         response = embedding_model_response(input_text)
         st.markdown(response)
 
-# question answering page
-
-if selected == "Ask me anything":
-    st.title(" ? Ask me a question")
-    # text box to enter prompt 
-
-    user_prompt = st.text_area(label="",placeholder="Ask Gemini pro...")
+# Question answering page
+if selected == "Ask me Anything":
+    st.title("❓ Ask me a question")
+    # Text box to enter prompt
+    user_prompt = st.text_area(label="", placeholder="Ask Gemini pro...")
     if st.button("Get an answer"):
-        response =gemini_pro_response(input_text)
+        response = gemini_pro_response(user_prompt)
         st.markdown(response)
-        
